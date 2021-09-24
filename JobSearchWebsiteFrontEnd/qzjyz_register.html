@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+    <head>
+
+        <meta charset="utf-8">
+        <title>注册(register)</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="assets/css/reset.css">
+        <link rel="stylesheet" href="assets/css/supersized.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+
+        <script type="text/javascript"> 
+        function validate(){
+			
+			var password=document.getElementById("password").value;
+			var password1=document.getElementById("password1").value;
+			if(password!=password1){
+				alert("密码前后不同！");
+				return false;
+			}
+			else if (password.length<8){
+				alert("密码至少为8位！");
+				return false;
+				}
+            }
+        function    submit(){
+            var email=signup.email.value;
+            var username=signup.username.value;
+            var password_finnal=signup.password1.value;
+            var role_option=document.getElementById("role");
+            var index=role_option.selectedIndex;
+            var role_selected=role_option.options[index].value;
+            var xmlhttp=new XMLHttpRequest();
+                xmlhttp.onreadystatechange=function()
+	            {
+		         
+                        var json_xmlhttp=JSON.parse(xmlhttp.responseText);
+                        alert(json_xmlhttp.msg); 
+                        window.location.href='home.html';                                               
+		            
+	            }
+                xmlhttp.open("POST","http://localhost:8080/api/auth/signup",true);
+                xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+               
+                xmlhttp.send("email="+email+"&name="+username+"&password="+password_finnal+"&role="+role_selected);
+            }
+        
+        </script> 
+</head>
+<body >
+<div class="page-container">
+        <h1>注册(register)</h1>
+<form name="signup" >
+    <input type="text" name="username" class="username" placeholder="请输入用户名！">
+    <input type="email" name="email" class="email" placeholder="请输入邮箱！">
+    <select id="role">
+        <option value="job_seeker" select="selected">求职用户</option>
+        <option value="hr">hr</option>
+   </select>
+   <br/>
+    <input type="password" name="password" class="password" placeholder="请输入您的用户密码！">
+    <input type="password" name="password1" class="password1" placeholder="请重新输入您的用户密码！">
+    <input type="checkbox"><font size="2" color="red" required>我已阅读并同意相关条例</font>
+    <div class="error"><span>+</span></div>
+   
+</form>	
+<button type="button" onclick="submit()">注册</button>
+</div>
+
+<script src="assets/js/jquery-1.8.2.min.js" ></script>
+        <script src="assets/js/supersized.3.2.7.min.js" ></script>
+        <script src="assets/js/supersized-init.js" ></script>
+        <script src="assets/js/scripts.js" ></script>
+<div style="text-align:center;">
+</div>
+</body>
+</html>

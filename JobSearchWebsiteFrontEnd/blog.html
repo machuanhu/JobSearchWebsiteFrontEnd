@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <style>
+        button {
+            padding: 14px 60px;
+            border: none;
+            background: #089DB0;
+            color: #eee;
+            overflow: auto;
+            width: auto;
+        }
+
+        p {
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        .comment-list {
+            /*clear: both*/
+        }
+
+        .th1 {
+            width: 20%;
+            border: solid #666633;
+            color: #000000;
+        }
+
+        .th2 {
+            width: 60%;
+            border: solid #666633;
+            color: #000000;
+        }
+
+        .td1 {
+            width: 20%;
+            border: solid #666633;
+            color: #000000;
+        }
+
+        .td2 {
+            width: 60%;
+            border: solid #666633;
+            color: #000000;
+        }
+
+        .SelfCommendContent {
+            border: 0px;
+            width: 50%;
+            height: 50px;
+            margin: 0 auto;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .InputBox {
+            border: solid #089DB0;
+            height: 90%;
+            width: 100%;
+            font-size: 20px;
+            margin: 0 1px;
+        }
+
+        .but {
+            float: right;
+            background: #089DB0;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="botton">
+            <button class="main-btn" id="ReturnHomePage" onclick="home()">返回主页</button>
+            <button class="main-btn" id="ReturnBlogList" onclick="blog_list()">返回博客列表</button>
+            <button class="main-btn" id="ReturnSelfPage" style="left: 70% " onclick="myself()">返回个人主页</button>
+        </div>
+        <script>
+            function home() {
+                window.location.href = 'home.html';
+            }
+            function blog_list() {
+                window.location.href = 'blog_list.html';
+            }
+            function myself() {
+                window.location.href = 'myself_option.html';
+            }
+        </script>
+
+        <table class="Commend">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="th1">作者名称</th>
+                    <th class="th2">作者邮箱</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td1" id="name"></td>
+                    <td class="td2" id="email"></td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="text-section">
+            <section class="green-section">
+                <p id="BlogContent">
+                    Formally established in 1946, the aim is to promote cooperation among countries through education, science and culture, and contribute to world peace and security. According to the introduction, UNESCO has 195 Member States and 58 executive board members.
+                </p>
+            </section>
+        </div>
+        <table class="Commend">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="th1">用户名</th>
+                    <th class="th2">评论</th>
+                </tr>
+            </thead>
+            <tbody id="1">
+                <tr>
+                    <td id="name1"></td>
+                    <td id="said1"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="SelfCommendContent">
+            <form class="InputBox" id="give_comment"><input class="InputBox" type="text" name="comment"></form>
+            <button class="but" type="button" onclick="submit()">发布评论</button>
+        </div>
+    </div>
+    <script>
+document.getElementById("name").innerHTML=localStorage.getItem("author_name")
+document.getElementById("email").innerHTML=localStorage.getItem("author_email")
+document.getElementById("BlogContent").innerHTML=localStorage.getItem("blog_context")
+
+    </script>
+    <script>
+        var xmlhttp=new XMLHttpRequest();
+                xmlhttp.onreadystatechange=function()
+	            {
+		            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		            {
+                        var add=document.querySelector("tbody[id='1']")
+                        var json_xmlhttp=JSON.parse(xmlhttp.responseText);
+                        for(var i=0;i<getHsonLength(json_xmlhttp.msg);i++){
+                            add.innerHTML += '<tr><td class="td1" id="name1">'+json_xmlhttp.msg[i].name+'</td>\n'+
+                                '<td class="td2"  id="said1">'+json_xmlhttp.msg[i].comment_context+'</td></tr>'
+                        }                       
+		            }
+	            }
+                xmlhttp.open("GET","http://localhost:8080/api/blog/comment_list?blog_id="+localStorage.getItem("blog_id"),true);
+                xmlhttp.send();
+                function getHsonLength(json_xmlhttp){
+                var jsonLength=0;
+                for (var i in json_xmlhttp) {
+                    jsonLength++;
+                }
+                return jsonLength;
+                }
+                
+        function submit(){
+            var xmlhttp=new XMLHttpRequest();
+            
+            xmlhttp.onreadystatechange=function()
+            {
+
+              var json_xmlhttp=JSON.parse(xmlhttp.responseText);
+              alert(json_xmlhttp.msg);                                    
+              
+            }
+            xmlhttp.open("POST","http://localhost:8080/api/blog/release_comment",true);
+            xmlhttp.setRequestHeader("token",localStorage.getItem("token"));
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.send("blog_id="+localStorage.getItem("blog_id")+"&comment_context="+give_comment.comment.value);
+        }
+    </script>
+</body>
+</html>
+

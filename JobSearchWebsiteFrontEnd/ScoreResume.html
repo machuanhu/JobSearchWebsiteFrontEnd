@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ScoreResume</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="homepage.css">
+    <style>
+      .putScore {
+            display:block;
+            width:200px;
+            height:60px;
+            text-align:center;
+            border:1px solid black;}
+    </style>
+</head>
+<body>
+  <div class="header">
+    <div class="nav">
+        <span>求职加油站</span>
+        <a class="aa" href="home.html">首页</a>
+        <a class="aa" href="#">打分</a>
+        <a class="aa" href="blog_list.html">博客广场</a>
+    </div> 
+    <div class="jieshao">
+        <a class="a3" href="myself_option.html">| 个人介绍</a>  
+      </div> 
+    <div class="dengru">
+        <ul>
+          <li><a class="a1" href="qzjyz_login.html">登入</a></li>
+          <li><a class="a2" href="qzjyz_register.html">注册</a></li>
+        </ul>   
+    </div> 
+    
+  </div> 
+  <div class="layui-bg-gray" style="padding: 30px;">
+        <div class="layui-row layui-col-space15 ">
+            <div class="layui-col-md6 ">
+                <div class="layui-panel">
+                    本项目支持开源计划，部分代码来自开源社区。
+                    <p>
+                        @software{pycorrector,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;author = {Xu Ming},<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;title = {pycorrector: Text Error Correction Tool},<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;year = {2020},<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;url = {https://github.com/shibing624/pycorrector},}<br>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">
+            <span class="red-c" style="float:right;">*</span>个人简历：
+        </label>
+        <div class="layui-input-block">
+            <textarea id="xwgs" lay-verify="required" style="width: 775px;height:350px" placeholder="个人简历" autocomplete="off" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <p class="putScore" >
+        <br />
+        您简历的得分为:<br>
+        <span id="p1" >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </p>
+    <div class="layui-btn-container" style="position: relative;">
+        <button type="button" onclick="tijiao()" style="position: absolute;left: 50%;" class="layui-btn layui-btn-primary">提交</button>
+    </div>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script src="submit_jianli.js" charset="utf-8"></script>
+    <script>
+        layui.use('element', function () {
+            var element = layui.element;
+            element.on('nav(demo)', function (elem) {
+                layer.msg(elem.text());
+            });
+        });
+        function tijiao(){
+            var resume=document.getElementById("xwgs").value;
+            var xmlhttp=new XMLHttpRequest();
+                xmlhttp.onreadystatechange=function()
+	            {
+		    
+                        var json_xmlhttp=JSON.parse(xmlhttp.responseText);
+
+                        document.getElementById("p1").innerHTML=json_xmlhttp.result;                                    
+                       
+	            }
+                xmlhttp.open("POST","http://localhost:8080/api/secret/resume_secret",true);
+                xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xmlhttp.send("resume_context="+resume);
+                
+        }
+    </script>
+</body>
+</html>

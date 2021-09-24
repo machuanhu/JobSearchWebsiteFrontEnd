@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<script>
+
+var xmlhttp=new XMLHttpRequest();
+
+xmlhttp.onreadystatechange=function()
+{
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+        var json_xmlhttp=JSON.parse(xmlhttp.responseText);
+        if (json_xmlhttp.role=="hr"){
+            window.location.href="myself_hr.html";
+        }
+        if (json_xmlhttp.role=="job_seeker"){
+            window.location.href="myself_job_seeker.html";
+        }
+    }
+}
+xmlhttp.open("GET","http://localhost:8080/api/auth/myself",true);
+xmlhttp.setRequestHeader("token",localStorage.getItem("token"));
+xmlhttp.send();
+</script>
+        
+    </head>
+<bode>
+
+</bode>
+
+</html>

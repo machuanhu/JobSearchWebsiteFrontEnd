@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html >
+ 
+<head>
+  <meta charset="UTF-8">
+  <title>ReceiveResume</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+  <style tpye="text/css">
+  .mianban-box{
+    position: relative;
+  }
+.mianban-box1{
+  position: absolute;
+  top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 50px 30px;
+}
+
+	p{text-indent:2em;}
+	p.serif{font-family:"Times New Roman",Times,serif;}
+	p.sansserif{font-family:"Comic Sans MS", cursive, sans-serif;}
+	
+	#example1 {
+ background-image: linear-gradient(to right, rgba(255,130,0,0.6), rgba(125,130,125,0.2),rgba(0,130,255,0.6));
+    background-position: right bottom, left top;
+    background-repeat: no-repeat, repeat;
+    padding: 45px;
+}
+	
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    background-image:url(https://iknow-pic.cdn.bcebos.com/18d8bc3eb13533faa20d29b7a8d3fd1f40345beb)         ;  background-repeat:repeat-y ;background-size:100% 100%;
+background-attachment: fixed;
+  
+    background-color: #f5f5f5 ;
+}
+
+.flex-container2 {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    background-image:url(https://iknow-pic.cdn.bcebos.com/18d8bc3eb13533faa20d29b7a8d3fd1f40345beb)         ;  background-repeat:repeat-y ;background-size:100% 100%;
+background-attachment: fixed;  
+    background-color: #f1f1f1 ;
+}
+
+.flex-item {
+  border:none;
+	box-shadow: 2px 2px 1px #d3d3d3;
+	 border-radius:2px;
+	width:450px;
+  height: 175px;
+    margin:50px auto;
+    background-color: #ffffff
+}
+	
+	
+	
+	div.imgCenter{
+	text-align:center;
+}
+
+  </style>
+</head>
+ 
+<body>
+  
+    <!--开头的按钮-->
+    <ul class="layui-nav">
+        <li class="layui-nav-item"><a href="#">返回个人主页</a></li>
+      </ul>
+      <!--信息-->
+      <div class="flex-container">
+          <div class="flex-item">
+        <ul>
+          <center>
+           <h2 > 个人信息</h2>
+        </center>
+        
+            <li>&nbsp;&nbsp;&nbsp;姓名：<div id="name"> </div></li> <br />
+            <li>&nbsp;&nbsp;&nbsp;邮箱：<div id="email"></div> </li><br />
+            <li>&nbsp;&nbsp;&nbsp;简介：<div id="information"></div></li> <br />
+         </ul>
+          </div>
+        
+                              <!--图片-->
+        
+        <div class="imgCenter"><img src=""></div>  
+       </div>
+      
+                          <!--分界-->
+       <div class="flex-container2">
+        
+                            <!--简历内容-->
+       
+      <form action="">
+        <center>
+          <fieldset id="test" style="box-shadow: 2px 2px 1px #d3d3d3;border-radius:6px;border-width: 2px; border-color: #fcfcfc; width:27%; height:310px">
+            <center>
+      <legend>简历内容</legend>
+            </center> 
+      <p class="serif">
+          <div id="CV"></div>
+          </p>
+      </fieldset>
+      </center>
+      </form>
+          
+                           <!--回复内容-->
+                          
+      <form action="">
+      <center>
+        <fieldset class="test" style="box-shadow: 2px 2px 1px #d3d3d3;border-radius:6px;border-width: 3px; border-color: #f5f5f5; width:40%; height:320px">
+      <legend>回复内容</legend>
+      <p class="sansserif">
+        <div id="reply"></div> 
+          </p>
+      </fieldset>
+      </center>
+      </form>
+      </div>
+    
+      <script>
+      document.getElementById("reply").innerHTML=localStorage.getItem("reply_context");
+      document.getElementById("CV").innerHTML=localStorage.getItem("resume_context");
+      document.getElementById("name").innerHTML=localStorage.getItem("hr_name");
+      document.getElementById("email").innerHTML=localStorage.getItem("email_myhr");
+      document.getElementById("information").innerHTML=localStorage.getItem("hr_introduction");
+      </script>
+      
+        
+      <script src="layui/layui.js" charset="utf-8"></script>
+      <script src="submit_jianli.js" charset="utf-8"></script>
+      <script>
+      layui.use('element', function(){
+        var element = layui.element; 
+      
+        element.on('nav(demo)', function(elem){
+          layer.msg(elem.text());
+        });
+      });
+      </script>
+       <script>
+    let arr=document.getElementsByClassName('test')
+    for(var i=0;i<arr.length;i++){
+      let test=arr[i]
+      test.addEventListener('mousedown',e=>{
+      var mouseDownX = e.clientX;
+      var mouseDownY = e.clientY;
+      var clickBoxLeft = test.offsetLeft;
+      var clickBoxTop = test.offsetTop;
+      var clickBoxWeight = test.offsetWidth;
+      var clickBoxHeight = test.offsetHeight;
+ 
+      var direction = 0;
+      if (mouseDownX < clickBoxLeft + 30) {
+        direction = 'left';
+      } else if (mouseDownX > clickBoxLeft + clickBoxWeight - 30) {
+        direction = 'right';
+      }
+ 
+      if (mouseDownY < clickBoxTop + 30) {
+        direction = 'top';
+      } else if (direction < clickBoxTop + clickBoxHeight - 30) {
+        direction = 'bottom';
+      }
+      if ((clickBoxLeft + clickBoxWeight - 30) < mouseDownX && mouseDownX < (clickBoxLeft + clickBoxWeight) && (clickBoxTop + clickBoxHeight - 30) < mouseDownY && mouseDownY < (clickBoxTop + clickBoxHeight)) {
+        direction = 'rightBottomCorner';
+      } else if ((clickBoxLeft + 30) < mouseDownX && mouseDownX < (clickBoxLeft + clickBoxWeight - 30) && (clickBoxTop + 30) < mouseDownY && mouseDownY < (clickBoxTop + clickBoxHeight - 30)) {     //如果是在中间位置，则实现拖动功能
+        direction = "drag";
+      }
+ 
+      document.onmousemove = function (e) {
+        var xx = e.clientX;
+        var yy = e.clientY;
+        if (direction === 'left') {
+          test.style.width = clickBoxWeight + mouseDownX - xx + 'px'
+          test.style.left = xx + 'px';
+        } else if (direction === 'right') {
+          test.style.width = clickBoxWeight + xx - mouseDownX + 'px'
+        }
+ 
+        if (direction === 'top') {
+          test.style.height = clickBoxHeight + mouseDownY - yy + 'px';
+          test.style.top = yy + 'px';
+        } else if (direction === 'bottom') {
+          test.style.height = clickBoxHeight + yy - mouseDownY + 'px';
+        }
+        if (direction === 'rightBottomCorner') {
+          test.style.width = clickBoxWeight + xx - mouseDownX + 'px'
+          test.style.left = clickBoxLeft + 'px';
+          test.style.height = clickBoxHeight + yy - mouseDownY + 'px';
+          test.style.top = clickBoxTop + 'px';
+        } else if (direction === "drag") {
+          test.style.left = xx - mouseDownX + clickBoxLeft + 'px';
+          test.style.top = yy - mouseDownY + clickBoxTop + 'px';
+        }
+        //return false; //这里为了避免抖动
+      };
+      document.onmouseup = function () {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      })
+    }
+ 
+    var clickBox = document.getElementById('test');
+    /**
+     *desc:当在当前元素上按下鼠标时，就触发拖动和拉伸操作
+     */
+    clickBox.onmousedown =(e)=> {
+      console.log(clickBox)
+      var mouseDownX = e.clientX;
+      var mouseDownY = e.clientY;
+      var clickBoxLeft = clickBox.offsetLeft;
+      var clickBoxTop = clickBox.offsetTop;
+      var clickBoxWeight = clickBox.offsetWidth;
+      var clickBoxHeight = clickBox.offsetHeight;
+ 
+      var direction = 0;
+      if (mouseDownX < clickBoxLeft + 30) {
+        direction = 'left';
+      } else if (mouseDownX > clickBoxLeft + clickBoxWeight - 30) {
+        direction = 'right';
+      }
+ 
+      if (mouseDownY < clickBoxTop + 30) {
+        direction = 'top';
+      } else if (direction < clickBoxTop + clickBoxHeight - 30) {
+        direction = 'bottom';
+      }
+      if ((clickBoxLeft + clickBoxWeight - 30) < mouseDownX && mouseDownX < (clickBoxLeft + clickBoxWeight) && (clickBoxTop + clickBoxHeight - 30) < mouseDownY && mouseDownY < (clickBoxTop + clickBoxHeight)) {
+        direction = 'rightBottomCorner';
+      } else if ((clickBoxLeft + 30) < mouseDownX && mouseDownX < (clickBoxLeft + clickBoxWeight - 30) && (clickBoxTop + 30) < mouseDownY && mouseDownY < (clickBoxTop + clickBoxHeight - 30)) {     //如果是在中间位置，则实现拖动功能
+        direction = "drag";
+      }
+ 
+      /**
+       *desc:当鼠标开始华东的时候，根据鼠标的移动方向去调整他的X，Y坐标和长宽
+       */
+      document.onmousemove = function (e) {
+        e = e || event; //是要是使用原生js给我们提供的e回调参数，这存储了很多有用的信息
+        var xx = e.clientX;
+        var yy = e.clientY;
+        if (direction === 'left') {
+          clickBox.style.width = clickBoxWeight + mouseDownX - xx + 'px'
+          clickBox.style.left = xx + 'px';
+        } else if (direction === 'right') {
+          clickBox.style.width = clickBoxWeight + xx - mouseDownX + 'px'
+        }
+ 
+        if (direction === 'top') {
+          clickBox.style.height = clickBoxHeight + mouseDownY - yy + 'px';
+          clickBox.style.top = yy + 'px';
+        } else if (direction === 'bottom') {
+          clickBox.style.height = clickBoxHeight + yy - mouseDownY + 'px';
+        }
+        if (direction === 'rightBottomCorner') {
+          clickBox.style.width = clickBoxWeight + xx - mouseDownX + 'px'
+          clickBox.style.left = clickBoxLeft + 'px';
+          clickBox.style.height = clickBoxHeight + yy - mouseDownY + 'px';
+          clickBox.style.top = clickBoxTop + 'px';
+        } else if (direction === "drag") {
+          clickBox.style.left = xx - mouseDownX + clickBoxLeft + 'px';
+          clickBox.style.top = yy - mouseDownY + clickBoxTop + 'px';
+        }
+        //return false; //这里为了避免抖动
+      };
+      document.onmouseup = function () {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+    };
+    // /**
+    //  *desc:在拉伸的过程中，实现居中状态长存,有时间将其做成一个插件公布出来，供大家使用
+    //  */
+ 
+  </script>
+</body>
+</html>

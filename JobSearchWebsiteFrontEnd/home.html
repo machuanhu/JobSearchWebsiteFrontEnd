@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>Home</title>
+    <link rel="stylesheet" href="homepage.css">
+</head>
+<body style="background-color: #707f9d;">
+  <div class="header">
+    <div class="nav">
+        <span>求职加油站</span>
+        <a class="aa" href="home.html">首页</a>
+        <a class="aa" href="ScoreResume.html">打分</a>
+        <a class="aa" href="blog_list.html">博客广场</a>
+    </div> 
+    <div class="jieshao" >
+      <a class="a3" href="myself_option.html">| 个人介绍</a>  
+    </div>  
+    <div class="dengru">
+        <ul>
+          <li><a class="a1" href="qzjyz_login.html">登入</a></li>
+          <li><a class="a2" href="qzjyz_register.html">注册</a></li>
+        </ul>   
+    </div> 
+    
+  
+  </div>
+
+        <div class="box">
+              <ul id="ol1" >
+                <li id="li_1" style="background-color: #fff;">
+                <a href="submit_jianli.html" onclick="getid(1)"><span id="name1"></span></a><br>
+                <a href="submit_jianli.html" onclick="getid(1)"  ><span id="email1"></span></a><br>
+                <a href="submit_jianli.html"  onclick="getid(1)"><span id="introduction1"></span></a><br>   
+              </li>
+           
+              <li id="li_2" style="background-color: #fff;">
+                <a href="submit_jianli.html" onclick="getid(2)"><span id="name2"></span></a><br>
+                <a href="submit_jianli.html" onclick="getid(2)"><span id="email2"></span></a><br>
+                <a href="submit_jianli.html" onclick="getid(2)"><span id="introduction2"></span></a><br> 
+              </li>
+              <li id="li_3" style="background-color: #fff;">
+                <a href="submit_jianli.html" onclick="getid(3)"><span id="name3"></span></a><br>
+                <a href="submit_jianli.html" onclick="getid(3)"><span id="email3"></span></a><br>
+                <a href="submit_jianli.html" onclick="getid(3)"><span id="introduction3"></span></a><br> 
+              </li>
+        
+            </ul>
+          </div>
+        <div class="box1">
+            <button type="button"  onclick="loadpage(0)">第一页</button> 
+            <button type="button"  onclick="loadpage(1)">第二页</button>
+            <button type="button"  onclick="loadpage(2)">第三页</button> 
+        </div>
+          <script>
+              function loadxmldoc(num)
+                    {
+                        var xmlhttp=new XMLHttpRequest();
+                        xmlhttp.onreadystatechange=function()
+                        {
+                                    
+                                    var json_xmlhttp=JSON.parse(xmlhttp.responseText);
+                                  if (getHsonLength(json_xmlhttp.msg)==3){
+                                    document.getElementById("name1").innerHTML=json_xmlhttp.msg[0].name;                            
+                                    document.getElementById("email1").innerHTML=json_xmlhttp.msg[0].email;
+                                    document.getElementById("introduction1").innerHTML=json_xmlhttp.msg[0].introduction;
+                                    document.getElementById("name2").innerHTML=json_xmlhttp.msg[1].name;
+                                    document.getElementById("email2").innerHTML=json_xmlhttp.msg[1].email;
+                                    document.getElementById("introduction2").innerHTML=json_xmlhttp.msg[1].introduction;
+                                    document.getElementById("name3").innerHTML=json_xmlhttp.msg[2].name;
+                                    document.getElementById("email3").innerHTML=json_xmlhttp.msg[2].email;
+                                    document.getElementById("introduction3").innerHTML=json_xmlhttp.msg[2].introduction;                                            
+                                  }else if(getHsonLength(json_xmlhttp.msg)==2){
+                                    document.getElementById("name1").innerHTML=json_xmlhttp.msg[0].name;                            
+                                    document.getElementById("email1").innerHTML=json_xmlhttp.msg[0].email;
+                                    document.getElementById("introduction1").innerHTML=json_xmlhttp.msg[0].introduction;
+                                    document.getElementById("name2").innerHTML=json_xmlhttp.msg[1].name;
+                                    document.getElementById("email2").innerHTML=json_xmlhttp.msg[1].email;
+                                    document.getElementById("introduction2").innerHTML=json_xmlhttp.msg[1].introduction;
+                                  }
+                                  else if(getHsonLength(json_xmlhttp.msg)==1){
+                                    document.getElementById("name1").innerHTML=json_xmlhttp.msg[0].name;                            
+                                    document.getElementById("email1").innerHTML=json_xmlhttp.msg[0].email;
+                                    document.getElementById("introduction1").innerHTML=json_xmlhttp.msg[0].introduction;
+                                    
+                                  }
+                        }
+                        xmlhttp.open("GET","http://localhost:8080/api/hr/hr_list?page="+num+"&number=3",true);
+                        xmlhttp.send();
+                    }
+                function getHsonLength(json_xmlhttp){
+                  var jsonLength=0;
+                  for (var i in json_xmlhttp) {
+                    jsonLength++;
+                  }
+                  return jsonLength;
+                }
+                      loadxmldoc(0);
+                    function loadpage(num)
+                    {
+                        //document.getElementById("li_1").innerHTML=" ";
+                        //document.getElementById("li_2").innerHTML=" ";
+                        //document.getElementById("li_3").innerHTML=" ";
+                                    document.getElementById("name1").innerHTML="";                            
+                                    document.getElementById("email1").innerHTML="";
+                                    document.getElementById("introduction1").innerHTML="";
+                                    document.getElementById("name2").innerHTML="";
+                                    document.getElementById("email2").innerHTML="";
+                                    document.getElementById("introduction2").innerHTML="";
+                                    document.getElementById("name3").innerHTML="";
+                                    document.getElementById("email3").innerHTML="";
+                                    document.getElementById("introduction3").innerHTML="";
+                        if(num==1)
+                        {
+                            loadxmldoc(1);
+                        }
+                        else if(num==2)
+                        {
+                            loadxmldoc(2);
+                        }
+                        else if(num==0)
+                        {
+                            loadxmldoc(0);
+                        }
+                    }
+          </script>
+          <script src="home.js"></script>
+        </body>
+        </html>

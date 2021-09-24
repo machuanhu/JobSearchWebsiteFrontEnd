@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <link rel="stylesheet" href="homepage.css">
+    <style>
+         .box3{
+  width: 600px;
+height: 40px;
+margin-top: 20px;
+float:right;
+}
+.box3 button{
+  display:inline-block;
+  width:100px;
+  height:30px;
+  background-color: #393d49;
+  color:rgb(253, 253, 251);
+  text-align: center;
+  border: none;
+}
+.box3 button:hover{
+  background-color: rgb(41, 46, 46);
+}
+        p {
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+        .comment-list {
+            clear: both
+        }
+.blog{
+    margin-top: 10px;
+    text-align: center;
+}
+.font{
+    font-size: 20px;
+    flood-color: #393d49;
+}
+
+    </style>
+</head>
+<body background="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201709%2F10%2F20170910121943_j2SHA.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628240045&t=1baab4a65e3dbb58f8a35caf11736a58" style=" background-repeat:no-repeat ;background-size:100% 100%;
+background-attachment: fixed;"background-repeat:repeat-y ;>
+    <div class="header">
+        <div class="nav">
+            <span>求职加油站</span>
+            <a class="aa" href="home.html">首页</a>
+            <a class="aa" href="ScoreResume.html">打分</a>
+            <a class="aa" href="blog_list.html">博客</a>
+        </div> 
+        <div class="jieshao" >
+          <a class="a3" href="myself_option.html">| 个人介绍</a>  
+        </div>  
+        <div class="dengru">
+            <ul>
+              <li><a class="a1" href="qzjyz_login.html">登入</a></li>
+              <li><a class="a2" href="qzjyz_register.html">注册</a></li>
+            </ul>   
+        </div> 
+    </div>
+    
+    
+        <div class="blog">
+        <!-- <label class="layui-form-label"><span class="red-c">*</span>博客</label> -->
+        <textarea id="xwgs" class="font" placeholder="请写下你的博客内容" lay-verify="required" rows="15" cols="80"></textarea>
+        </div>
+
+     
+    <div class="box3" >
+        <button type="button" onclick="exit()">取消发布</button>
+        <button type="button" onclick="submit()">提交博客</button>
+    </div>
+    
+</body>
+<script>
+function exit(){
+    window.location.href='blog_list.html';
+}
+function submit(){
+            var xmlhttp=new XMLHttpRequest();
+            
+            xmlhttp.onreadystatechange=function()
+            {
+
+              var json_xmlhttp=JSON.parse(xmlhttp.responseText);
+              alert(json_xmlhttp.msg);                                    
+              
+            }
+            xmlhttp.open("POST","http://localhost:8080/api/blog/release_blog",true);
+            xmlhttp.setRequestHeader("token",localStorage.getItem("token"));
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.send("blog_context="+document.getElementById("xwgs").value);
+            window.location.href='blog_list.html';
+        }
+</script>
+</html>

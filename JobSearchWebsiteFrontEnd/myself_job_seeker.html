@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>求职加油站(qiuzhijiayouzhan.top)</title>
+    </head>
+
+    <style>
+        a{
+    text-decoration: none;
+}
+        .header{
+    height: 58px;
+    width: 100%;
+    background-color:#393d49 !important;
+    margin-bottom: 5px;
+}
+.nav{
+    height: 58px;
+    width: 721px;
+    line-height: 50px;
+    float: left;
+}
+.nav .aa{
+display: inline-block;
+text-align:center;
+color:#fff;
+text-decoration:none ;
+padding: 0 20px; 
+}
+.nav span{
+display: inline-block;
+text-align:center;
+color:#fff;
+text-decoration:none ;
+padding: 0 20px; 
+font-size: 30px;
+}
+.nav a:hover{
+    background-color: rgb(90, 89, 89);
+}
+
+li {
+   list-style: none;
+   margin-bottom: 0px;
+}
+#li_3{
+ margin-bottom: 0px;
+} 
+
+.box{width: 600px;
+height: 300px;
+border: 1px solid #ccc;
+margin-left: 300px;
+margin-top: 150px;
+margin-bottom: 80px;
+}
+
+.box ul {
+width: 600px;
+height: 400px;
+}
+.box ul li a{
+font-size: 28px;
+color:#666;
+text-decoration: none;
+}
+
+.box ul li a:hover{
+text-decoration: underline;
+color: darkgoldenrod;
+}   
+.box ul li{
+height: 100px ;
+line-height: 23px;
+border-bottom: solid #666;
+}
+.box1{
+width: 600px;
+height: 40px;
+margin-left:auto;
+margin-right: auto;
+text-align: center;
+}
+.box1 button{
+display:inline-block;
+width:100px;
+height:30px;
+background-color: rgb(4, 7, 6);
+color:rgb(253, 253, 251);
+text-align: center;
+border: none;
+}
+.box1 button:hover{
+background-color: rgb(41, 46, 46);
+}
+.jieshao {
+    float :right;  
+    margin-right: 5px;
+}
+.dengru {
+float :right;
+margin-right: 5px;
+}
+.dengru ul {
+text-decoration: none;
+margin-top: 10px;
+}
+.dengru ul li a{
+    display: inline-block;
+text-decoration: none;
+color: rgb(253, 253, 251);
+}
+.a3{
+    display: inline-block;
+   font-size:  25px ;
+   color: rgb(253, 253, 251);
+   margin-top:10px ;
+   margin-left: 5px;
+}
+
+        .table
+        {
+           border-style: solid;
+           border-color: rgb(90, 89, 89);
+           margin:0 10px;
+           width:78%;
+           float:left;
+        }
+        td
+        {  
+            height:200px
+        }
+        .box3{
+  width: 600px;
+height: 40px;
+margin-top: 20px;
+float:right;
+}
+.box3 button{
+  display:inline-block;
+  width:100px;
+  height:30px;
+  background-color: #393d49;
+  color:rgb(253, 253, 251);
+  text-align: center;
+  border: none;
+}
+.box3 button:hover{
+  background-color: rgb(41, 46, 46);
+}
+.hrself{
+font-size: 20px;
+}
+.box2{
+    float:left;
+    margin: 5px 0;
+    width: 20%;
+    background-color:rgba(4, 7, 6,0.8);
+    color:rgb(253, 253, 251);
+
+}
+    </style>
+   
+    <body background="http://pic1.win4000.com/wallpaper/f/57a1bd044388b.jpg" style=" background-repeat:no-repeat ;background-size:100% 100%;
+    background-attachment: fixed;"background-repeat:repeat-y ;>
+        <div class="header">
+            <div class="nav">
+                <span>求职加油站</span>
+                <a class="aa" href="home.html">首页</a>
+                <a class="aa" href="ScoreResume.html">打分</a>
+                <a class="aa" href="blog_list.html">博客广场</a>
+               
+            </div> 
+            <div class="jieshao" >
+              <a class="a3" href="#">| 个人介绍</a>  
+            </div>  
+            <div class="dengru">
+                <ul>
+                  <li><a class="a1" href="#">登入</a></li>
+                  <li><a class="a2" href="#">注册</a></li>
+                </ul>   
+            </div> 
+        </div>
+        
+        <div>
+            <div class="box2">
+            <ul style="list-style:none;">
+            <li class="hrself">个人主页</li>
+            <li><p  id="name">姓名</p></li>
+            <li><p  id="email">邮箱</p></li>
+            <li><p  id="role">角色</p></li>
+       
+        <li><form id="it" >
+            <input name="introduction">
+            <button type="button" onclick="edit()">编辑个人信息</button>
+        </form>
+        </li>
+        </ul>
+        </div>
+        <table class="table" border="1";>
+            <tr>
+                <td><a href="check.html" id="resume_1" onclick="getid(1)" style="text-decoration: none;"></a></td>
+            </tr>
+            <tr>
+                <td><a href="check.html" id="resume_2" onclick="getid(2)" style="text-decoration: none;"></a></td>
+            </tr>
+        </table>  
+        </div>
+
+        <script>
+            var xmlhttp=new XMLHttpRequest();
+                xmlhttp.onreadystatechange=function()
+	            {
+		            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		            {
+                        var json_xmlhttp=JSON.parse(xmlhttp.responseText);
+                        document.getElementById("name").innerHTML=json_xmlhttp.name;
+                        document.getElementById("email").innerHTML=json_xmlhttp.email;
+                        it.introduction.value=json_xmlhttp.introduction;
+                        document.getElementById("role").innerHTML=json_xmlhttp.role;
+		            }
+	            }
+                xmlhttp.open("GET","http://localhost:8080/api/auth/myself",true);
+                xmlhttp.setRequestHeader("token",localStorage.getItem("token"));
+                xmlhttp.send();
+                
+        </script>
+        <script>
+            function edit(){
+                var edit_introduction=it.introduction.value
+                var xmlhttp=new XMLHttpRequest();
+                xmlhttp.onreadystatechange=function()
+	            {
+		                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		            {
+                        var json_xmlhttp=JSON.parse(xmlhttp.responseText);
+                        alert(json_xmlhttp.msg);
+		            }
+	            }
+                xmlhttp.open("POST","http://localhost:8080/api/auth/introduction",true);
+                xmlhttp.setRequestHeader("token",localStorage.getItem("token"));
+                xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xmlhttp.send("introduction="+edit_introduction);
+            }
+        </script>
+         
+        <script>
+            var email1
+            var email2
+            var reply_context1
+            var reply_context2
+            var resume_context1
+            var resume_context2
+            var hr_name1
+            var hr_name2
+            var hr_introduction1
+            var hr_introduction2
+            function loadxmldoc(num)
+            {
+                var xmlhttp=new XMLHttpRequest();
+                xmlhttp.onreadystatechange=function()
+	            {
+                    var index=2*num;
+                    var index1=2*num+1;
+                   
+		            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		            {
+                            var json_xmlhttp=JSON.parse(xmlhttp.responseText);
+                            if(getHsonLength(json_xmlhttp.resume)>index1){
+                             email1=json_xmlhttp.resume[index].hremail;
+                             email2=json_xmlhttp.resume[index1].hremail;
+                             reply_context1=json_xmlhttp.resume[index].reply;
+                             reply_context2=json_xmlhttp.resume[index1].reply;
+                             resume_context1=json_xmlhttp.resume[index].resumecontext;
+                             resume_context2=json_xmlhttp.resume[index1].resumecontext;
+                             hr_name1=json_xmlhttp.resume[index].hrname;
+                             hr_name2=json_xmlhttp.resume[index1].hrname;
+                             hr_introduction1=json_xmlhttp.resume[index].hrintroduction;
+                             hr_introduction2=json_xmlhttp.resume[index1].hrintroduction;
+                            document.getElementById("resume_1").innerHTML=resume_context1;
+                            document.getElementById("resume_2").innerHTML=resume_context2;
+                            }else if(getHsonLength(json_xmlhttp.resume)<=index1&&getHsonLength(json_xmlhttp.resume)>index){
+                                 email1=json_xmlhttp.resume[index].hremail;
+                                 reply_context1=json_xmlhttp.resume[index].reply;
+                                 resume_context1=json_xmlhttp.resume[index].resumecontext;
+                                 hr_name1=json_xmlhttp.resume[index].hrname;
+                                 hr_introduction1=json_xmlhttp.resume[index].hrintroduction;
+                                document.getElementById("resume_1").innerHTML=resume_context1;
+                            }else{
+
+                            }
+                                                                         
+		            }
+	            }
+                xmlhttp.open("GET","http://localhost:8080/api/auth/myhr",true);
+                xmlhttp.setRequestHeader("token",localStorage.getItem("token"));
+                xmlhttp.send();
+            }
+            function getHsonLength(json_xmlhttp){
+                var jsonLength=0;
+                for (var i in json_xmlhttp) {
+                    jsonLength++;
+                }
+                return jsonLength;
+            }
+            loadxmldoc(0);
+            function loadpage(num)
+            {
+                document.getElementById("resume_1").innerHTML=" ";
+                document.getElementById("resume_2").innerHTML=" ";
+                if(num==1)
+                {
+                    
+                        loadxmldoc(0);
+                   
+                }
+                else if(num==2)
+                {
+                    
+                        loadxmldoc(1);
+                    
+                }
+                else if(num==3)
+                {
+                    
+                        loadxmldoc(2);
+                   
+                }
+            }
+            function getid(num){
+                if(num==1){
+                    localStorage.setItem("resume_context",resume_context1);
+                    localStorage.setItem("email_myhr",email1);
+                    localStorage.setItem("reply_context",reply_context1);
+                    localStorage.setItem("hr_name",hr_name1);
+                    localStorage.setItem("hr_introduction",hr_introduction1);
+                }else if(num==2){
+                    localStorage.setItem("resume_context",resume_context2);
+                    localStorage.setItem("email_myhr",email2);
+                    localStorage.setItem("reply_context",reply_context2);
+                    localStorage.setItem("hr_name",hr_name2);
+                    localStorage.setItem("hr_introduction",hr_introduction2);
+                }
+            }
+        </script>
+        <div class="box3" > 
+            <button type="button" onclick="loadpage(1)">第一页</button>
+            <button type="button" onclick="loadpage(2)">第二页</button>
+            <button type="button" onclick="loadpage(3)">第三页</button>
+        </div>
+         
+    </body>
+</html>
